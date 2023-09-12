@@ -1,0 +1,45 @@
+<project>
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+    <target name="compile" depends="clean">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes">
+            <classpath location="lib/junit-4.13.jar" />
+        </javac>
+    </target>
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/Rational.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="Rational"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="run" depends="jar">
+        <java jar="build/jar/Rational.jar" fork="true"/>
+    </target>
+    <!-- Create "test" -->
+<!--    <target name="test" depends="compile">-->
+<!--        <junit showoutput ="yes" printsummary ="yes" haltonfailure ="no">-->
+<!--            <classpath location ="build/classes" />-->
+<!--            <classpath location ="lib/junit -4.13. jar" />-->
+<!--            <classpath location ="lib/hamcrest -core -1.3. jar" />-->
+<!--            <test name=" RationalTest " />-->
+<!--        </junit >-->
+<!--    </target >-->
+
+    <!-- Modify "test" -->
+    <target name="test" depends="compile">
+        <mkdir dir="report"/>
+        <junit showoutput ="yes" printsummary ="yes" haltonfailure ="no">
+            <classpath location ="build/classes" />
+            <classpath location ="lib/junit -4.13. jar" />
+            <classpath location ="lib/hamcrest -core -1.3. jar" />
+            <test name=" RationalTest " todir="report">
+                <formatter type="plain" />
+                <formatter type="xml" />
+            </test >
+        </junit >
+    </target >
+</project>
